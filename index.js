@@ -164,8 +164,10 @@ module.exports = {
 		var outputFile = outputDir ? path.resolve(outputDir,path.basename(inputFile)) : '';
         var c = new Compiler(config,outputFile);
         var result = c.analyze(inputFile);
-        content = c.combo(fixModuleName, outputDir,comboOnly,path.extname(depFileName)==='.json');
-        if(content && depFileName){
+        if(depFileName) {
+            content = c.combo(fixModuleName, outputDir,comboOnly,path.extname(depFileName)==='.json');
+        }
+        if(content){
             utils.writeFileSync(depFileName, content, depFileCharset);
         }
         return returnDependencies === true ? { files: [result], success: true, modules: c.modules, content: content } : content;
